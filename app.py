@@ -1,15 +1,16 @@
 import streamlit as st
 import time
+import random # 🌟 新增這個工具：用來產生隨機的漂浮特效
 
 # 1. 設定手機上看到的網頁標題與圖示
 st.set_page_config(page_title="祝妳生日快樂🎂", page_icon="💖", layout="centered")
 
 # ==========================================
-# 加入精美的 CSS 動畫：無盡的粉色愛心與煙火特效
+# 加入精美的 CSS 動畫：滿版無限循環漂浮特效
 # ==========================================
 page_bg_css = """
 <style>
-/* 隱藏預設的頂部和底部選單，讓畫面更乾淨像獨立 APP */
+/* 隱藏預設的頂部和底部選單 */
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {visibility: hidden;}
@@ -19,20 +20,23 @@ header {visibility: hidden;}
     background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
 }
 
-/* 製作飄浮圖案的動畫 (無限循環) */
+/* 製作飄浮圖案的動畫 (無限循環，加入淡入淡出效果) */
 @keyframes floatUp {
-    0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
-    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
 }
 
 /* 定義漂浮圖案的樣式 */
 .floating-emoji {
     position: fixed;
     bottom: -10%;
-    font-size: 2.5rem;
     z-index: 9999;
     pointer-events: none;
-    animation: floatUp 6s infinite ease-in;
+    animation-name: floatUp;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; /* 讓上升速度保持均勻均速 */
 }
 
 /* 讓祝福語的卡片更精美，加入圓角和陰影 */
@@ -43,24 +47,29 @@ header {visibility: hidden;}
     box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
     text-align: center;
     margin-top: 20px;
+    position: relative;
 }
 </style>
-
-<!-- 產生許多不同位置和速度的粉色愛心與圖案 -->
-<div class="floating-emoji" style="left: 10%; animation-duration: 5s; animation-delay: 0s;">💖</div>
-<div class="floating-emoji" style="left: 25%; animation-duration: 7s; animation-delay: 1s;">🎆</div>
-<div class="floating-emoji" style="left: 40%; animation-duration: 6s; animation-delay: 2s;">🌸</div>
-<div class="floating-emoji" style="left: 60%; animation-duration: 8s; animation-delay: 0.5s;">💖</div>
-<div class="floating-emoji" style="left: 75%; animation-duration: 5.5s; animation-delay: 3s;">✨</div>
-<div class="floating-emoji" style="left: 90%; animation-duration: 7.5s; animation-delay: 1.5s;">💖</div>
 """
-# 將特效套用到網頁上
-st.markdown(page_bg_css, unsafe_allow_html=True)
+
+# 🌟 魔法升級：用 Python 自動產生 40 個隨機的漂浮圖案！
+floating_html = ""
+emojis = ['💖', '🎆', '🌸', '✨', '💕', '🎂']
+for _ in range(40):
+    emoji = random.choice(emojis)
+    left = random.randint(0, 100)           # 在畫面左右 0%~100% 隨機分配位置
+    duration = random.uniform(8, 20)        # 漂浮速度 (8秒到20秒不等，有快有慢)
+    delay = random.uniform(0, 15)           # 出現的時間差 (0到15秒隨機出現，才不會擠在一起)
+    size = random.uniform(1.0, 2.5)         # 隨機大小
+    floating_html += f'<div class="floating-emoji" style="left: {left}%; font-size: {size}rem; animation-duration: {duration}s; animation-delay: {delay}s;">{emoji}</div>\n'
+
+# 將 CSS 和 滿滿的漂浮圖案套用到網頁的背景上
+st.markdown(page_bg_css + floating_html, unsafe_allow_html=True)
+
 
 # ==========================================
-# 2. 這裡可以自己輸入/修改你想對他說的專屬祝福語
+# 2. 專屬祝福語
 # ==========================================
-# 使用 HTML 讓文字更有層次感，可以改顏色跟大小
 CUSTOM_MESSAGE = """
 <p style="font-size: 1.1rem; color: #555; line-height: 1.8; font-family: sans-serif;">
 李芯貝祝妳20歲生日快樂！<br><br>
@@ -79,20 +88,17 @@ CUSTOM_MESSAGE = """
 
 # 製作一點期待感的小讀取動畫
 with st.spinner("正在為你準備驚喜，請稍等喔..."):
-    time.sleep(2.5) # 停頓 2.5 秒製造期待感
+    time.sleep(2.5) 
 
-# Streamlit 內建的氣球特效（打開網頁時放一次）
+# 一進來時施放的大氣球特效 (保留原本打開網頁第一瞬間的驚喜感)
 st.balloons()
 
 # 顯示精美的卡片與文字
 st.markdown(f'<div class="message-card">{CUSTOM_MESSAGE}</div>', unsafe_allow_html=True)
 
 # 顯示無限循環的漂亮煙火動圖 (GIF)
-st.markdown("<br>", unsafe_allow_html=True) # 空一行
+st.markdown("<br>", unsafe_allow_html=True) 
 st.image("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif", use_container_width=True)
 
-st.markdown("<br>", unsafe_allow_html=True) # 再空一行當間距
-# 放第二張動圖（我先放一張可愛的生日蛋糕熊熊當範例，你可以把網址換掉）
+st.markdown("<br>", unsafe_allow_html=True) 
 st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjduZjBva3phdDJmamFsbDVydzl1eG11a3oydG5zZ2hnc2xtY2tmciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IFjSbBHETzzr6GJdwW/giphy.gif", use_container_width=True)
-
-         
