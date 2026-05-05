@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-import random # 🌟 新增這個工具：用來產生隨機的漂浮特效
+import random 
 
 # 1. 設定手機上看到的網頁標題與圖示
 st.set_page_config(page_title="祝妳生日快樂🎂", page_icon="💖", layout="centered")
@@ -20,7 +20,7 @@ header {visibility: hidden;}
     background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
 }
 
-/* 製作飄浮圖案的動畫 (無限循環，加入淡入淡出效果) */
+/* 製作飄浮圖案的動畫 */
 @keyframes floatUp {
     0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
     10% { opacity: 0.9; }
@@ -31,12 +31,12 @@ header {visibility: hidden;}
 /* 定義漂浮圖案的樣式 */
 .floating-emoji {
     position: fixed;
-    bottom: -10%;
+    top: 0; /* 基準點改在最上方，配合 translateY 讓計算更準確 */
     z-index: 9999;
     pointer-events: none;
     animation-name: floatUp;
     animation-iteration-count: infinite;
-    animation-timing-function: linear; /* 讓上升速度保持均勻均速 */
+    animation-timing-function: linear; 
 }
 
 /* 讓祝福語的卡片更精美，加入圓角和陰影 */
@@ -52,15 +52,21 @@ header {visibility: hidden;}
 </style>
 """
 
-# 🌟 魔法升級：用 Python 自動產生 40 個隨機的漂浮圖案！
+# 🌟 魔法升級：使用「負數延遲」讓圖案一開始就佈滿整個畫面！
 floating_html = ""
 emojis = ['💖', '🎆', '🌸', '✨', '💕', '🎂']
-for _ in range(40):
+
+# 數量加碼到 60 個，讓畫面更熱鬧
+for _ in range(60):
     emoji = random.choice(emojis)
-    left = random.randint(0, 100)           # 在畫面左右 0%~100% 隨機分配位置
-    duration = random.uniform(8, 20)        # 漂浮速度 (8秒到20秒不等，有快有慢)
-    delay = random.uniform(0, 15)           # 出現的時間差 (0到15秒隨機出現，才不會擠在一起)
-    size = random.uniform(1.0, 2.5)         # 隨機大小
+    left = random.randint(0, 100)           
+    duration = random.uniform(10, 25)       # 稍微放慢速度，讓畫面更夢幻不刺眼
+    
+    # 🔥 關鍵修改：讓延遲變成負數 (-25 到 0 之間)
+    # 這樣一進來網頁，圖案就已經分佈在畫面的各個高度了！
+    delay = random.uniform(-25, 0)          
+    
+    size = random.uniform(1.0, 2.5)         
     floating_html += f'<div class="floating-emoji" style="left: {left}%; font-size: {size}rem; animation-duration: {duration}s; animation-delay: {delay}s;">{emoji}</div>\n'
 
 # 將 CSS 和 滿滿的漂浮圖案套用到網頁的背景上
@@ -68,7 +74,7 @@ st.markdown(page_bg_css + floating_html, unsafe_allow_html=True)
 
 
 # ==========================================
-# 2. 專屬祝福語
+# 2. 這裡可以自己輸入/修改你想對他說的專屬祝福語
 # ==========================================
 CUSTOM_MESSAGE = """
 <p style="font-size: 1.1rem; color: #555; line-height: 1.8; font-family: sans-serif;">
@@ -90,7 +96,7 @@ CUSTOM_MESSAGE = """
 with st.spinner("正在為你準備驚喜，請稍等喔..."):
     time.sleep(2.5) 
 
-# 一進來時施放的大氣球特效 (保留原本打開網頁第一瞬間的驚喜感)
+# 一進來的氣球特效
 st.balloons()
 
 # 顯示精美的卡片與文字
