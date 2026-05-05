@@ -3,7 +3,7 @@ import time
 import random 
 
 # 1. 設定手機上看到的網頁標題與圖示
-st.set_page_config(page_title="祝妳生日快樂🎂", page_icon="💖", layout="centered")
+st.set_page_config(page_title="🎂祝妳生日快樂🎂", page_icon="💖", layout="centered")
 
 # ==========================================
 # 加入精美的 CSS 動畫：滿版無限循環漂浮特效 & 手機排版優化
