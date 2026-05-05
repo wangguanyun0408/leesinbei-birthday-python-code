@@ -115,10 +115,28 @@ st.balloons()
 
 # 顯示精美的卡片與文字
 st.markdown(f'<div class="message-card">{CUSTOM_MESSAGE}</div>', unsafe_allow_html=True)
+# ==========================================
+# 🌟 圖片排版魔法：橫向並排顯示兩個 GIF
+# ==========================================
+st.markdown("<br>", unsafe_allow_html=True) # 留一點空隙
+
+# 建立兩個並排的隱形欄位 (col1 在左，col2 在右)
+col1, col2 = st.columns(2)
+
+# 在左邊的欄位放入第一張圖
+with col1:
+    st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjduZjBva3phdDJmamFsbDVydzl1eG11a3oydG5zZ2hnc2xtY2tmciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IFjSbBHETzzr6GJdwW/giphy.gif", use_container_width=True)
+
+# 在右邊的欄位放入第二張圖
+with col2:
+    st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExenBpcG43NmJ3YjlkZm9vaTd5bDh3dHB1ZnJmc25zc2ZiYnpmdHh1ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AgO9VR2a9KW1MSP73I/giphy.gif", use_container_width=True)
 
 # 顯示無限循環的漂亮煙火動圖 (GIF)
-st.markdown("<br>", unsafe_allow_html=True) 
-st.image("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif", use_container_width=True)
+##st.markdown("<br>", unsafe_allow_html=True) 
+##st.image("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif", use_container_width=True)
 
-st.markdown("<br>", unsafe_allow_html=True) 
-st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjduZjBva3phdDJmamFsbDVydzl1eG11a3oydG5zZ2hnc2xtY2tmciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IFjSbBHETzzr6GJdwW/giphy.gif", use_container_width=True)
+##st.markdown("<br>", unsafe_allow_html=True) 
+##st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjduZjBva3phdDJmamFsbDVydzl1eG11a3oydG5zZ2hnc2xtY2tmciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IFjSbBHETzzr6GJdwW/giphy.gif", use_container_width=True)
+
+##st.markdown("<br>", unsafe_allow_html=True) 
+##st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExenBpcG43NmJ3YjlkZm9vaTd5bDh3dHB1ZnJmc25zc2ZiYnpmdHh1ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AgO9VR2a9KW1MSP73I/giphy.gif", use_container_width=True)
