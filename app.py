@@ -6,7 +6,7 @@ import random
 st.set_page_config(page_title="祝妳生日快樂🎂", page_icon="💖", layout="centered")
 
 # ==========================================
-# 加入精美的 CSS 動畫：滿版無限循環漂浮特效
+# 加入精美的 CSS 動畫：滿版無限循環漂浮特效 & 手機排版優化
 # ==========================================
 page_bg_css = """
 <style>
@@ -31,7 +31,7 @@ header {visibility: hidden;}
 /* 定義漂浮圖案的樣式 */
 .floating-emoji {
     position: fixed;
-    top: 0; /* 基準點改在最上方，配合 translateY 讓計算更準確 */
+    top: 0; 
     z-index: 9999;
     pointer-events: none;
     animation-name: floatUp;
@@ -42,42 +42,56 @@ header {visibility: hidden;}
 /* 讓祝福語的卡片更精美，加入圓角和陰影 */
 .message-card {
     background-color: rgba(255, 255, 255, 0.85);
-    padding: 30px;
+    padding: 25px 20px; /* 稍微縮小預設的內邊距 */
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
     text-align: center;
     margin-top: 20px;
     position: relative;
 }
+
+/* 設定文字的基本樣式 */
+.birthday-text {
+    font-size: 1.05rem; 
+    color: #555; 
+    line-height: 1.8; 
+    font-family: sans-serif;
+}
+
+/* 📱 關鍵魔法：當螢幕寬度小於 450px (手機) 時，自動套用這段設定 */
+@media (max-width: 450px) {
+    .birthday-text {
+        font-size: 0.88rem; /* 字體自動縮小，確保同一行塞得下 */
+    }
+    .message-card {
+        padding: 20px 10px; /* 卡片留白變少，給文字更多空間 */
+    }
+}
 </style>
 """
 
-# 🌟 魔法升級：使用「負數延遲」讓圖案一開始就佈滿整個畫面！
+# 🌟 將數量調降，畫面更乾淨浪漫
 floating_html = ""
 emojis = ['💖', '🎆', '🌸', '✨', '💕', '🎂']
 
-# 數量加碼到 60 個，讓畫面更熱鬧
-for _ in range(60):
+# 數量改成 25 個
+for _ in range(25):
     emoji = random.choice(emojis)
     left = random.randint(0, 100)           
-    duration = random.uniform(10, 25)       # 稍微放慢速度，讓畫面更夢幻不刺眼
-    
-    # 🔥 關鍵修改：讓延遲變成負數 (-25 到 0 之間)
-    # 這樣一進來網頁，圖案就已經分佈在畫面的各個高度了！
-    delay = random.uniform(-25, 0)          
-    
-    size = random.uniform(1.0, 2.5)         
+    duration = random.uniform(15, 30)       # 速度調慢一點，更有氛圍
+    delay = random.uniform(-30, 0)          
+    size = random.uniform(1.0, 2.0)         # 圖案稍微縮小一點
     floating_html += f'<div class="floating-emoji" style="left: {left}%; font-size: {size}rem; animation-duration: {duration}s; animation-delay: {delay}s;">{emoji}</div>\n'
 
-# 將 CSS 和 滿滿的漂浮圖案套用到網頁的背景上
+# 將 CSS 和 漂浮圖案套用到網頁的背景上
 st.markdown(page_bg_css + floating_html, unsafe_allow_html=True)
 
 
 # ==========================================
-# 2. 這裡可以自己輸入/修改你想對他說的專屬祝福語
+# 2. 專屬祝福語
 # ==========================================
 CUSTOM_MESSAGE = """
-<p style="font-size: 1.1rem; color: #555; line-height: 1.8; font-family: sans-serif;">
+<div class="birthday-text">
 李芯貝祝妳20歲生日快樂！<br><br>
 恭喜妳也成為一個20歲的小大人了<br>
 雖然妳總是對我很客氣也不願意收下我的禮物<br>
@@ -88,12 +102,12 @@ CUSTOM_MESSAGE = """
 有事情呢還是可以找我幫忙妳可以不用不好意思<br><br>
 還有什麼時候才要吃飯我都找不到人吃飯💢💢<br><br>
 祝妳的20歲順利也開心持續有淡淡的幸福出現🎂🎂🎂
-</p>
+</div>
 """
 # ==========================================
 
 # 製作一點期待感的小讀取動畫
-with st.spinner("正在為你準備驚喜，請稍等喔..."):
+with st.spinner("正在為妳準備驚喜，請稍等喔..."):
     time.sleep(2.5) 
 
 # 一進來的氣球特效
