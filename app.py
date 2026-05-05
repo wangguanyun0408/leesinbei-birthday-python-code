@@ -93,6 +93,6 @@ st.image("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif", use_contai
 
 st.markdown("<br>", unsafe_allow_html=True) # 再空一行當間距
 # 放第二張動圖（我先放一張可愛的生日蛋糕熊熊當範例，你可以把網址換掉）
-st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjduZjBva3phdDJmamFsbDVydzl1eG11a3oydG5zZ2hnc2xtY2tmciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IFjSbBHETzzr6GJdwW/giphy.gif“, use_container_width=True)
+st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjduZjBva3phdDJmamFsbDVydzl1eG11a3oydG5zZ2hnc2xtY2tmciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IFjSbBHETzzr6GJdwW/giphy.gif", use_container_width=True)
 
          
